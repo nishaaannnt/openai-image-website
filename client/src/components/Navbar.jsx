@@ -5,8 +5,8 @@ const Navbar = () => {
   return (
     <header className='w-full h-16 bg-[#1c1d20] text-white flex items-center '>
         <div className="flex justify-between w-full">
-            <div className='py-3 px-6'>
-                <Link to='/'><h1 className='md:text-xl font-bold text-[#36a3db]'>NEW OPEN AI</h1></Link>
+            <div className='py-3 md:px-6 pl-4'>
+                <Link to='/'><h1 className='md:text-xl  font-bold text-[#36a3db]'>NEW OPEN AI</h1></Link>
             </div>
             <div className='items-center flex'>
                 <ul className='flex items-center px-4 '>

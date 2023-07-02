@@ -1,10 +1,16 @@
 import React from 'react'
 
-const FormField = ({labelName,name,placeholder,type,value,handleChange}) => {
+const FormField = ({labelName,name,placeholder,type,value,handleChange,surpriseMe,handleSurpriseMe}) => {
   return (
-    <div className='px-4'>
-        <label className='text-xl text-white ' htmlFor={name}>{labelName}</label>
-        <input className='w-[calc(100vw-80px)] mt-4 rounded-lg p-3 py-2 border bg-gray-50' 
+    <div className='px-4 md:mt-4 mt-3 py-3 flex flex-col'>
+      <div className='mb-1'>
+        <label className='md:text-xl text-white ' htmlFor={name}>{labelName}</label>
+        {surpriseMe&&<>
+          <a onClick={handleSurpriseMe} 
+            className='md:px-2 px-2 mx-4 bg-[#077dac] text-white py-2 rounded-lg hover:cursor-pointer hover:bg-purple-600'>Surprise Generate</a>
+        </>}
+        </div>
+        <input className='w-[calc(100vw-20vw)] mt-4 rounded-xl p-3 py-2 border-gray focus:outline-none focus:border-black bg-gray-50 text-[#077dac]' 
         type={type}
         placeholder={placeholder} 
         value={value} 

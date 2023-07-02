@@ -13,20 +13,21 @@ const  Home = () => {
   }
 
   return (
-    <section id="home " className='h-auto w-full bg-[#1c1d20]'>
-        <div className=' h-[calc(100vh-73px)]  m-auto flex justify-center items-center'>
-          <h1 className='md:text-4xl  text-3xl text-center text-white font-bold '><span className='text-[#36a3db]'> WELCOME</span> TO OPEN AI BASED IMAGE GENERATION TOOL</h1>
-        </div>
+    <section id="home " className='h-screen w-full bg-[#1c1d20]'>
+        
         {/* this is a reusable form component */}
-        <div>
+        <div className='flex items-center justify-center py-6'>
           <FormField
-          labelName="Search post"
+          labelName=""
           placeholder="Search for keywords"
           type='text'
           name='text'
           value={searchText}
           handleChange={handleSearchChange}
           />
+        </div>
+        <div className='h-auto py-16 mt-8 flex justify-center items-center'>
+          <h1 className='md:text-4xl  text-3xl text-center text-white font-bold '><span className='text-[#36a3db]'> WELCOME</span> TO OPEN AI BASED IMAGE GENERATION TOOL</h1>
         </div>
         <div>
           {loading?<>Loading...</>:<>
