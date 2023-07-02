@@ -1,2 +1,2 @@
-# openai-image-website
-An AI image generation website with the help of OpenAI api.
+# OpenAI API based AI image generation 
+Currently working on fronted
