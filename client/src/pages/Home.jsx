@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import FormField from '../components/FormField';
 
+
 const  Home = () => {
 
   // declare all the required states
