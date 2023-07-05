@@ -8,7 +8,7 @@ const RenderCards = ({data, title}) => {
   }
   return (
     <>
-      <h2 className="tect-xl text-white font-bold">{title}</h2>
+      <h2 className="text-xl text-center text-white font-bold">{title}</h2>
     </>
   );
 };
@@ -17,8 +17,8 @@ const RenderCards = ({data, title}) => {
 const Home = () => {
   // declare all the required states
   const [searchText, setsearchText] = useState("");
-  const [allPosts, setallPosts] = useState();
-  const [searchedresults, setsearchedresults] = useState();
+  const [allPosts, setallPosts] = useState(null);
+  const [searchedresults, setsearchedresults] = useState(null);
   const [loading, setloading] = useState(false);
 
   // changes function for search in home page
