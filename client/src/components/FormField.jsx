@@ -7,7 +7,7 @@ const FormField = ({labelName,name,placeholder,type,value,handleChange,surpriseM
         <label className='md:text-xl text-white ' htmlFor={name}>{labelName}</label>
         {surpriseMe&&<>
           <button onClick={handleSurpriseMe} 
-            className='md:px-2 px-2 mx-4 bg-[#077dac] text-white py-2 rounded-lg hover:cursor-pointer hover:bg-purple-600'>Surprise Generate</button>
+            className='md:px-2 px-2 mx-4 bg-[#666666] text-white py-2 rounded-lg hover:cursor-pointer hover:bg-[#3d3d3d]'>Surprise Generate</button>
         </>}
         </div>
         <input className='w-[calc(100vw-20vw)] mt-4 rounded-xl p-3 py-2 border-gray focus:outline-none focus:border-black bg-gray-50 text-[#077dac]' 

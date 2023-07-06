@@ -16,6 +16,13 @@ const Createpost = () => {
     photo: "",
   });
 
+  const handleSubmit=()=>{
+    setloading(true);
+      setTimeout(() => {
+        setloading(false);
+      }, 3000);
+  }
+
   const generateImg=()=>{
     setloading(true);
     setgeneratingImg(true);
@@ -65,7 +72,7 @@ const Createpost = () => {
         />
       </div>
       
-      <div className="h-auto w-96 md:mx-24 mt-8 relative">
+      <div className="h-auto md:w-96 md:mx-24 mt-8 relative">
         {form.photo?
           <img src={form.photo} alt={form.prompt} className="w-full h-full object-contain"/>
           :<img src={preview} alt="" className="bg-white  rounded-xl" />
@@ -79,12 +86,13 @@ const Createpost = () => {
       <div className="flex flex-col md:mx-16 gap-3  py-6">
         <button 
         onClick={generateImg}
-        className='md:px-2 px-2 mx-4 bg-[#005d0b] text-white py-2 rounded-lg hover:cursor-pointer hover:bg-[#00980f] md:w-1/3'>
+        className='md:px-2 px-2 mx-4 bg-[#00980f]  text-white py-2 rounded-lg hover:cursor-pointer hover:bg-[#005d0b] md:w-1/3'>
           {generatingImg?<>Generating...</>:<>Generate</>}
           </button>
         <button 
-        className='md:px-2 px-2 mx-4 bg-[#077dac] text-white py-2 rounded-lg hover:cursor-pointer hover:bg-purple-600 md:w-1/3'>
-          Submit
+        onClick={handleSubmit}
+        className='md:px-2 px-2 mx-4 bg-[#077dac] text-white py-2 rounded-lg hover:cursor-pointer hover:bg-[#004967] md:w-1/3'>
+         { loading?<>Sharing...</>:<>Share with Community</>}
           </button>
       </div>
 
