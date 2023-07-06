@@ -3,6 +3,8 @@ import { FormField, Loader } from "../components";
 import { surpriseMe } from "../utils";
 import { preview } from "../assets";
 
+
+
 const Createpost = () => {
   // declare all the required states
   const [searchText, setsearchText] = useState("");
@@ -13,6 +15,16 @@ const Createpost = () => {
     prompt: "",
     photo: "",
   });
+
+  const generateImg=()=>{
+    setloading(true);
+    setgeneratingImg(true);
+    setTimeout(() => {
+      setForm({...form,photo:"https://picsum.photos/300/300"});
+      setloading(false);
+      setgeneratingImg(false);
+    }, 1000);
+  }
 
   // Handle changes in the input field
   const handleSearchChange = (e) =>
@@ -53,10 +65,10 @@ const Createpost = () => {
         />
       </div>
       
-      <div className="h-auto  md:mx-24 mt-8 relative">
+      <div className="h-auto w-96 md:mx-24 mt-8 relative">
         {form.photo?
-          <img src={form.photo} alt={form.prompt} />
-          :<img src={preview} alt="" className="bg-white w-96 rounded-xl" />
+          <img src={form.photo} alt={form.prompt} className="w-full h-full object-contain"/>
+          :<img src={preview} alt="" className="bg-white  rounded-xl" />
         }
         {generatingImg&&
         <div className="absolute flex items-center justify-center bg-[rgba(0,0,0,0.5)] inset-0 w-96 rounded-xl">
@@ -65,8 +77,15 @@ const Createpost = () => {
         }
       </div>
       <div className="flex flex-col md:mx-16 gap-3  py-6">
-        <button className='md:px-2 px-2 mx-4 bg-[#005d0b] text-white py-2 rounded-lg hover:cursor-pointer hover:bg-[#00980f] md:w-1/3'>Generate</button>
-        <button className='md:px-2 px-2 mx-4 bg-[#077dac] text-white py-2 rounded-lg hover:cursor-pointer hover:bg-purple-600 md:w-1/3'>Submit</button>
+        <button 
+        onClick={generateImg}
+        className='md:px-2 px-2 mx-4 bg-[#005d0b] text-white py-2 rounded-lg hover:cursor-pointer hover:bg-[#00980f] md:w-1/3'>
+          {generatingImg?<>Generating...</>:<>Generate</>}
+          </button>
+        <button 
+        className='md:px-2 px-2 mx-4 bg-[#077dac] text-white py-2 rounded-lg hover:cursor-pointer hover:bg-purple-600 md:w-1/3'>
+          Submit
+          </button>
       </div>
 
     </section>
