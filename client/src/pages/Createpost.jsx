@@ -6,8 +6,8 @@ import { preview } from "../assets";
 
 
 const Createpost = () => {
+  
   // declare all the required states
-  const [searchText, setsearchText] = useState("");
   const [loading, setloading] = useState(false);
   const [generatingImg, setgeneratingImg] = useState(false);
   const [form, setForm] = useState({
@@ -23,14 +23,32 @@ const Createpost = () => {
       }, 3000);
   }
 
-  const generateImg=()=>{
-    setloading(true);
-    setgeneratingImg(true);
-    setTimeout(() => {
-      setForm({...form,photo:"https://picsum.photos/300/300"});
-      setloading(false);
-      setgeneratingImg(false);
-    }, 1000);
+  const generateImg=async()=>{
+    if(form.prompt){
+      try {
+        setgeneratingImg(true);
+        const response=await fetch('http://localhost:8080/api/v1/dalle',
+        {
+          method:'POST',
+          headers:{
+            'Content-Type':'application/json'
+          },
+          body:JSON.stringify({prompt:form.prompt}),
+        })
+        
+        const data=await response.json();
+        console.log(data);
+
+        setForm({...form,photo:`data:image/jpeg;base64,${data.photo}`})
+      } catch (error) {
+        console.log(error)
+        alert(error)
+      }finally{
+        setgeneratingImg(false);
+      }
+    }else{
+      alert('Please enter a prompt')
+    }
   }
 
   // Handle changes in the input field
@@ -73,6 +91,7 @@ const Createpost = () => {
       </div>
       
       <div className="h-auto md:w-96 md:mx-24 mt-8 relative">
+        <div id="errrr"></div>
         {form.photo?
           <img src={form.photo} alt={form.prompt} className="w-full h-full object-contain"/>
           :<img src={preview} alt="" className="bg-white  rounded-xl" />
