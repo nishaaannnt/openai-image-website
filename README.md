@@ -44,7 +44,7 @@ npm install
   CLOUDINARY_API_KEY=<your-cloudinary-api-key>
   CLOUDINARY_API_SECRET=<your-cloudinary-api-secret>
   ```
-- You can obtain the API keys by heading to the above mentioned websites
+- You can obtain the API keys by heading to their respective websites
 5. Install the dependencies for the frontend:
 ```
 cd ../client
