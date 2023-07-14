@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { FormField, Loader } from "../components";
+import { useNavigate } from "react-router-dom";
 import { surpriseMe } from "../utils";
 import { preview } from "../assets";
 
-
-
 const Createpost = () => {
-  
+  const navigate = useNavigate();
   // declare all the required states
   const [loading, setloading] = useState(false);
   const [generatingImg, setgeneratingImg] = useState(false);
@@ -16,40 +15,61 @@ const Createpost = () => {
     photo: "",
   });
 
-  const handleSubmit=()=>{
-    setloading(true);
-      setTimeout(() => {
-        setloading(false);
-      }, 3000);
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const generateImg=async()=>{
-    if(form.prompt){
+    if (form.name && form.prompt && form.photo) {
+      setloading(true);
+      try {
+        const response = await fetch("http://localhost:8080/api/v1/post", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({...form}),
+        });
+        const data = await response.json();
+        console.log(data);
+        alert("Post created successfully");
+        navigate("/");
+      } catch (error) {
+        console.log(error);
+        alert(error);
+      } finally {
+        setloading(false);
+      }
+    } else {
+      alert("Please fill all the fields");
+    }
+  };
+
+  const generateImg = async () => {
+    if (form.prompt) {
       try {
         setgeneratingImg(true);
-        const response=await fetch('http://localhost:8080/api/v1/dalle',
-        {
-          method:'POST',
-          headers:{
-            'Content-Type':'application/json'
+        const response = await fetch("http://localhost:8080/api/v1/dalle", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
-          body:JSON.stringify({prompt:form.prompt}),
-        })
-        
-        const data=await response.json();
+          body: JSON.stringify({ prompt: form.prompt }),
+        });
+
+        const data = await response.json();
         console.log(data);
 
-        setForm({...form,photo:`data:image/jpeg;base64,${data.photo}`})
+        setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
       } catch (error) {
-        console.log(error)
-        alert(error)
-      }finally{
+        console.log(error);
+        alert(error);
+      } finally {
         setgeneratingImg(false);
       }
-    }else{
-      alert('Please enter a prompt')
+    } else {
+      alert("Please enter a prompt");
+      console.log("Please enter a prompt");
     }
-  }
+  };
 
   // Handle changes in the input field
   const handleSearchChange = (e) =>
@@ -69,52 +89,60 @@ const Createpost = () => {
         </h1>
       </div>
       {/* this is a reusable form component */}
-      <div className="flex-col flex  items-center">
-        <FormField
-          labelName="Your name"
-          placeholder="Enter your name"
-          type="text"
-          name="name"
-          value={form.name}
-          handleChange={handleSearchChange}
-        />
-        <FormField
-          labelName="Enter prompt"
-          placeholder="Search for keywords"
-          type="text"
-          name="prompt"
-          surpriseMe={true}
-          value={form.prompt}
-          handleChange={handleSearchChange}
-          handleSurpriseMe={handleSurpriseMe}
-        />
-      </div>
-      
-      <div className="h-auto md:w-96 md:mx-24 mt-8 relative">
-        <div id="errrr"></div>
-        {form.photo?
-          <img src={form.photo} alt={form.prompt} className="w-full h-full object-contain"/>
-          :<img src={preview} alt="" className="bg-white  rounded-xl" />
-        }
-        {generatingImg&&
-        <div className="absolute flex items-center justify-center bg-[rgba(0,0,0,0.5)] inset-0 w-96 rounded-xl">
-          <Loader />
+      <form action="" onSubmit={handleSubmit}>
+        <div className="flex-col flex  items-center">
+          <FormField
+            labelName="Your name"
+            placeholder="Enter your name"
+            type="text"
+            name="name"
+            value={form.name}
+            handleChange={handleSearchChange}
+          />
+          <FormField
+            labelName="Enter prompt"
+            placeholder="Search for keywords"
+            type="text"
+            name="prompt"
+            surpriseMe={true}
+            value={form.prompt}
+            handleChange={handleSearchChange}
+            handleSurpriseMe={handleSurpriseMe}
+          />
         </div>
-        }
-      </div>
-      <div className="flex flex-col md:mx-16 gap-3  py-6">
-        <button 
-        onClick={generateImg}
-        className='md:px-2 px-2 mx-4 bg-[#00980f]  text-white py-2 rounded-lg hover:cursor-pointer hover:bg-[#005d0b] md:w-1/3'>
-          {generatingImg?<>Generating...</>:<>Generate</>}
-          </button>
-        <button 
-        onClick={handleSubmit}
-        className='md:px-2 px-2 mx-4 bg-[#077dac] text-white py-2 rounded-lg hover:cursor-pointer hover:bg-[#004967] md:w-1/3'>
-         { loading?<>Sharing...</>:<>Share with Community</>}
-          </button>
-      </div>
 
+        <div className="h-auto md:w-96 md:mx-24 mt-8 relative">
+          <div id="errrr"></div>
+          {form.photo ? (
+            <img
+              src={form.photo}
+              alt={form.prompt}
+              className="w-full h-full object-contain"
+            />
+          ) : (
+            <img src={preview} alt="" className="bg-white  rounded-xl" />
+          )}
+          {generatingImg && (
+            <div className="absolute flex items-center justify-center bg-[rgba(0,0,0,0.5)] inset-0 w-96 rounded-xl">
+              <Loader />
+            </div>
+          )}
+        </div>
+        <div className="flex flex-col md:mx-16 gap-3  py-6">
+          <button type="button"
+            onClick={generateImg}
+            className="md:px-2 px-2 mx-4 bg-[#00980f]  text-white py-2 rounded-lg hover:cursor-pointer hover:bg-[#005d0b] md:w-1/3"
+          >
+            {generatingImg ? <>Generating...</> : <>Generate</>}
+          </button>
+          <button
+            type="submit"
+            className="md:px-2 px-2 mx-4 bg-[#077dac] text-white py-2 rounded-lg hover:cursor-pointer hover:bg-[#004967] md:w-1/3"
+          >
+            {loading ? <>Sharing...</> : <>Share with Community</>}
+          </button>
+        </div>
+      </form>
     </section>
   );
 };
