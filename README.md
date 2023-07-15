@@ -64,4 +64,4 @@ npm start
 
 8. Access the application on `http://localhost:5000` in your browser.
 
-Images of the website will be added soon !
+Images of the website will be added soon!
