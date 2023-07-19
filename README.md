@@ -1,5 +1,6 @@
 # AI Image Generation 🤖
 
+## Update - More new features are being added (under Work) 
 This project is an AI-powered image generation application built using the MERN stack (MongoDB, Express.js, React.js, Node.js), Tailwind CSS, OpenAI API, and Cloudinary. It allows users to generate realistic images based on their inputs and showcase them in the community.
 
 ## Features

@@ -11,8 +11,10 @@ const Navbar = () => {
             <div className='items-center flex'>
                 <ul className='flex items-center px-4 '>
                     <Link to='/'><li className='md:px-3 px-1'>Home</li></Link>
-                    <Link to='/about'><li className='md:px-3 px-2'>About</li></Link>
-                    <Link to='/createpost'><li className='md:px-2 px-2 bg-[#077dac] text-white py-2 rounded-lg hover:cursor-pointer hover:bg-purple-600'>Create Post</li></Link>
+                    {/* <Link to='/about'><li className='md:px-3 px-2'>About</li></Link> */}
+                    <Link to='/createpost'><li className='md:px-2 p-2 md:mx-1 md:bg-[#2f3336] drop-shadow-lg text-white rounded-lg hover:cursor-pointer hover:bg-purple-600'>Create Post</li></Link>
+                    <Link to='/register'><li className='md:px-2 p-2 md:mx-3 hover:bg-[#057a09] bg-[#0aab0f] text-white rounded-lg drop-shadow-lg hover:cursor-pointer'>Register</li></Link>
+                    <Link to='/login'><li className='md:px-2 p-2 md:mx-2 hover:bg-[#05597a] bg-[#0a6dab] text-white rounded-lg drop-shadow-lg hover:cursor-pointer'>Login</li></Link>
                 </ul>
             </div>
         </div>

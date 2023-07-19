@@ -84,9 +84,9 @@ const Home = () => {
           IMAGE GENERATION TOOL
         </h1>
       </div>
-      <div className="md:mt-8 pb-8">
+      <div className="md:mt-8 pb-8 text-white">
         {loading ? (
-          <>Loading...</>
+          <p className="text-2xl font-bold">Loading...</p>
         ) : (
           <>
             {searchText && (
