@@ -1,5 +1,6 @@
 import React from "react";
-import { useState } from "react";
+import { useState} from "react";
+import {Link} from "react-router-dom";
 
 const Login = () => {
     
@@ -23,8 +24,12 @@ const Login = () => {
                         email,password
                     })
                 })
-                const data = await response.json();
-                alert('user Logged in successfully');
+                if(response.status===200){
+                  const data = await response.json();
+                  alert('user Logged in successfully');
+                }else{
+                  alert("response is not 200")
+                }
 
             } catch (error) {
                 console.log(error);
@@ -53,7 +58,7 @@ const Login = () => {
       </div>
 
       <form action="" onSubmit={handleSubmit} method="post">
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center flex-col">
           <div className="flex flex-col w-1/2">
             <div className="flex flex-col mb-4 gap-1">
               <label htmlFor="email" className="text-lg mb-2 text-white">
@@ -81,6 +86,10 @@ const Login = () => {
             </div>
             <button type="submit" className="bg-[#33a140] hover:bg-green-900 p-2 rounded-lg text-white mt-6">Login</button>
           </div>
+              <div className="flex-col  text-white my-5">
+                  <p className="text-center">OR</p>
+                  <Link to="/register" className="text-xl text-[#968fff]">Sign Up</Link>
+              </div>
         </div>
         <div><img src="" alt="" /></div>
       </form>
