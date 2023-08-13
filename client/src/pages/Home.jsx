@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import FormField from "../components/FormField";
 import { useEffect } from "react";
 import Card from "../components/Card";
@@ -14,13 +14,24 @@ const RenderCards = ({ data, title }) => {
   );
 };
 
-const Home = () => {
+const Home = (loggedIn) => {
   // declare all the required states
   const [searchText, setsearchText] = useState("");
   const [allPosts, setallPosts] = useState(null);
   const [searchedresults, setsearchedresults] = useState(null);
   const [searchTimeout, setSearchTimeout] = useState(null);
   const [loading, setloading] = useState(false);
+  const [loggedin,setloggedin] =useState(false);
+
+  useEffect(()=>{
+    const token=localStorage.getItem('token');
+    if(token){
+      setloggedin(true);
+      console.log(token);
+      console.log("Hi");
+    }
+    console.log("Hello")
+  },[])
 
   // changes function for search in home page
   const handleSearchChange = (e) => {
@@ -84,6 +95,7 @@ const Home = () => {
           IMAGE GENERATION TOOL
         </h1>
       </div>
+      {loggedIn &&
       <div className="md:mt-8 pb-8 text-white">
         {loading ? (
           <p className="text-2xl font-bold">Loading...</p>
@@ -108,6 +120,7 @@ const Home = () => {
           </>
         )}
       </div>
+    }
     </section>
   );
 };

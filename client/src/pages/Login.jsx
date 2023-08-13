@@ -27,6 +27,8 @@ const Login = () => {
                 if(response.status===200){
                   const data = await response.json();
                   alert('user Logged in successfully');
+                  console.log(data.user);
+                  console.log(data.token);
                 }else{
                   alert("response is not 200")
                 }
