@@ -1,9 +1,11 @@
 import React from "react";
 import { useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import useAuth from "../utils/useAuth";
 
 const Login = () => {
-    
+
+  const navigate=useNavigate();
     const [user,setUser] = useState({
         email:'',
         password:''
@@ -29,6 +31,8 @@ const Login = () => {
                   alert('user Logged in successfully');
                   console.log(data.user);
                   console.log(data.token);
+                  localStorage.setItem('token',data.token);
+                  window.location.href='/';
                 }else{
                   alert("response is not 200")
                 }

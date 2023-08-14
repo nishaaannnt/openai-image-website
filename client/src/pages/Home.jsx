@@ -1,7 +1,8 @@
-import React, { useState} from "react";
+import React, { useState,useContext } from "react";
 import FormField from "../components/FormField";
 import { useEffect } from "react";
 import Card from "../components/Card";
+import { Appstate } from "../App";
 
 // Render the contents of cards
 const RenderCards = ({ data, title }) => {
@@ -14,31 +15,25 @@ const RenderCards = ({ data, title }) => {
   );
 };
 
-const Home = (loggedIn) => {
+// Home page
+const Home = () => {
   // declare all the required states
   const [searchText, setsearchText] = useState("");
   const [allPosts, setallPosts] = useState(null);
   const [searchedresults, setsearchedresults] = useState(null);
   const [searchTimeout, setSearchTimeout] = useState(null);
   const [loading, setloading] = useState(false);
-  const [loggedin,setloggedin] =useState(false);
 
-  useEffect(()=>{
-    const token=localStorage.getItem('token');
-    if(token){
-      setloggedin(true);
-      console.log(token);
-      console.log("Hi");
-    }
-    console.log("Hello")
-  },[])
+  const useAppstate = useContext(Appstate);
+
+  // check if user is logged in or not
 
   // changes function for search in home page
   const handleSearchChange = (e) => {
     clearTimeout(searchTimeout);
     setsearchText(e.target.value);
 
-    setSearchTimeout( 
+    setSearchTimeout(
       setTimeout(() => {
         const searchresult = allPosts?.filter(
           (post) =>
@@ -50,6 +45,7 @@ const Home = (loggedIn) => {
     );
   };
 
+  // fetch all the posts from the database
   useEffect(() => {
     const fetchPosts = async () => {
       setloading(true);
@@ -95,32 +91,34 @@ const Home = (loggedIn) => {
           IMAGE GENERATION TOOL
         </h1>
       </div>
-      {loggedIn &&
-      <div className="md:mt-8 pb-8 text-white">
-        {loading ? (
-          <p className="text-2xl font-bold">Loading...</p>
-        ) : (
-          <>
-            {searchText && (
-              <h2 className=" text-[#ededed] text-xl mb-3">
-                Showing Results for <span className="font-bold">"{searchText}"</span>:
-              </h2>
-            )}
-            <div className="grid px-3 lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-3">
-              {searchText ? (
-                
+      {useAppstate.loggedin ? (
+        <div className="md:mt-8 pb-8 text-white">
+          {loading ? (
+            <p className="text-2xl font-bold">Loading...</p>
+          ) : (
+            <>
+              {searchText && (
+                <h2 className=" text-[#ededed] text-xl mb-3">
+                  Showing Results for{" "}
+                  <span className="font-bold">"{searchText}"</span>:
+                </h2>
+              )}
+              <div className="grid px-3 lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-3">
+                {searchText ? (
                   <RenderCards
                     data={searchedresults}
                     title="No Search Results Found"
                   />
-              ) : (
-                <RenderCards data={allPosts} title="No Posts Yet" />
-              )}
-            </div>
-          </>
-        )}
-      </div>
-    }
+                ) : (
+                  <RenderCards data={allPosts} title="No Posts Yet" />
+                )}
+              </div>
+            </>
+          )}
+        </div>
+      ) : (
+        <div className="flex justify-center items-center my-28 text-white text-xl">LOGIN TO VIEW ARTWORKS</div>
+      )}
     </section>
   );
 };

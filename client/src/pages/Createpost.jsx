@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { FormField, Loader } from "../components";
 import { useNavigate } from "react-router-dom";
 import { surpriseMe } from "../utils";
 import { preview } from "../assets";
+import {Appstate} from '../App';
 
 const Createpost = () => {
   const navigate = useNavigate();
+  const useAppstate=useContext(Appstate);
+
   // declare all the required states
   const [loading, setloading] = useState(false);
   const [generatingImg, setgeneratingImg] = useState(false);
@@ -82,13 +85,14 @@ const Createpost = () => {
   };
 
   return (
-    <section id="home " className="h-auto  md:p-12 p-8 w-full bg-[#1c1d20]">
+    <section id="home " className="h-auto min-h-screen  md:p-12 p-8 w-full bg-[#1c1d20]">
       <div className="]  m-auto flex justify-center items-center">
         <h1 className="md:text-4xl mt-6 mb-6 text-2xl text-center text-white font-bold ">
           <span className="text-[#36a3db]">Create </span>your imagination
         </h1>
       </div>
       {/* this is a reusable form component */}
+      {useAppstate.loggedin?
       <form action="" onSubmit={handleSubmit}>
         <div className="flex-col flex  items-center">
           <FormField
@@ -142,7 +146,9 @@ const Createpost = () => {
             {loading ? <>Sharing...</> : <>Share with Community</>}
           </button>
         </div>
-      </form>
+      </form>:<div className="flex justify-center items-center my-28">
+        <h1 className="text-2xl text-white">Please login to create a post</h1>
+      </div>}
     </section>
   );
 };

@@ -15,7 +15,8 @@ router.route("/").post(async(req,res)=>{
     if(userExist){
         if(await bcrypt.compare(password,userExist.password)){
 
-            const token=jwt.sign(userExist,process.env.ACCESS_TOKEN_SECRET);
+            // create a JWT token
+            const token=jwt.sign({userId:userExist._id},process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
             res.cookie('token',token);
             res.status(200).json({message:"Login Successfull",user:userExist,token});
 
