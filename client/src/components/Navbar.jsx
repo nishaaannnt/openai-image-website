@@ -1,7 +1,6 @@
 import React, { useEffect,useContext } from 'react'
 import { Link } from 'react-router-dom'
 import Logout from './Logout'
-import useAuth from '../utils/useAuth'
 import { Appstate } from '../App'
 
 const Navbar = () => {
@@ -23,7 +22,8 @@ const Navbar = () => {
                     {!useAppstate.loggedin ?<>
                     <Link to='/register'><li className='md:px-2 p-2 md:mx-3 hover:bg-[#057a09] bg-[#0aab0f] text-white rounded-lg drop-shadow-lg hover:cursor-pointer'>Register</li></Link>
                     <Link to='/login'><li className='md:px-2 p-2 md:mx-2 hover:bg-[#05597a] bg-[#0a6dab] text-white rounded-lg drop-shadow-lg hover:cursor-pointer'>Login</li></Link></>
-                    :<Logout/>
+                    :<><p className='px-3  text-lg '>Welcome <span className='font-semibold text-blue-300'> {useAppstate.userName}</span></p>
+                    <Logout/></>
                     }
                 </ul>
             </div>

@@ -4,12 +4,29 @@ import { Navbar } from "./components";
 import { Home, CreatePost, Register, Login } from "./pages";
 
 const Appstate = createContext();
+
 const App = () => {
   const [loggedin, setloggedin] = useState(false);
-  const [user, setUser] = useState(null);
+  const [userName, setUserName] = useState(null);
+  const [userEmail, setUserEmail] = useState(null);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
+        fetch("http://localhost:8080/api/login", {
+          headers: {
+          method: "GET",
+          Authorization: token,
+        },
+      }).then((res)=>
+        res.json()
+      ).then((data)=>{
+        setUserName(data.decodeToken.user.firstname + " " + data.decodeToken.user.lastname);
+        setUserEmail(data.decodeToken.user.email);
+      }).catch((err)=>{
+        console.log(err);
+      })
+
       setloggedin(true);
       console.log(token);
     } else {
@@ -19,7 +36,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Appstate.Provider value={{ loggedin }}>
+      <Appstate.Provider value={{ loggedin,setloggedin,userEmail,setUserEmail,userName,setUserName }}>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />

@@ -4,13 +4,12 @@ const Logout = () => {
 
     const handleLogout=()=>{
         localStorage.removeItem('token');
-        alert('user logged out successfully');
         window.location.href='/';
     }
 
   return (
     <div>
-        <button className='p-2 rounded-lg hover:bg-slate-800 transition' onClick={handleLogout}>Logout</button>
+        <button className='p-2 rounded-lg hover:bg-slate-800 bg-slate-600 transition' onClick={handleLogout}>Logout</button>
     </div>
   )
 }

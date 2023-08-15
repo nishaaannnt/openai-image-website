@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import useAuth from "../utils/useAuth";
+import { Appstate } from "../App";
 
 const Login = () => {
 
   const navigate=useNavigate();
+  const useAppstate=useContext(Appstate);
     const [user,setUser] = useState({
         email:'',
         password:''
@@ -28,9 +30,12 @@ const Login = () => {
                 })
                 if(response.status===200){
                   const data = await response.json();
-                  alert('user Logged in successfully');
+                  // alert('user Logged in successfully');
                   console.log(data.user);
-                  console.log(data.token);
+                  useAppstate.setloggedin(true);
+                  useAppstate.setUserName(data.user.firstname+" "+data.user.lastname);
+                  useAppstate.setUserEmail(data.user.email);
+                  
                   localStorage.setItem('token',data.token);
                   window.location.href='/';
                 }else{
