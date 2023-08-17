@@ -16,7 +16,7 @@ const Register = () => {
         // console.log(firstname,lastname,email,password)
         if(firstname&&lastname&&email&&password){
             try {
-                const response=await fetch('http://localhost:8080/api/register',{
+                const response=await fetch('https://openai-image-website1.vercel.app/api/register',{
                     method:'POST',
                     headers:{
                         'Content-Type':'application/json'

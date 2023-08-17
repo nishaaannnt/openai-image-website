@@ -13,7 +13,7 @@ const App = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-        fetch("http://localhost:8080/api/login", {
+        fetch("https://openai-image-website1.vercel.app//api/login", {
           headers: {
           method: "GET",
           Authorization: token,

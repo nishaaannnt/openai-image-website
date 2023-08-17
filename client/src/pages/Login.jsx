@@ -19,7 +19,7 @@ const Login = () => {
         // console.log(email,password)
         if(email&&password){
             try {
-                const response=await fetch('http://localhost:8080/api/login',{
+                const response=await fetch('https://openai-image-website1.vercel.app/api/login',{
                     method:'POST',
                     headers:{
                         'Content-Type':'application/json'

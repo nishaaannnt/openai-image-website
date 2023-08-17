@@ -24,7 +24,7 @@ const Createpost = () => {
     if (form.name && form.prompt && form.photo) {
       setloading(true);
       try {
-        const response = await fetch("http://localhost:8080/api/v1/post", {
+        const response = await fetch("https://openai-image-website1.vercel.app/api/v1/post", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -50,7 +50,7 @@ const Createpost = () => {
     if (form.prompt) {
       try {
         setgeneratingImg(true);
-        const response = await fetch("http://localhost:8080/api/v1/dalle", {
+        const response = await fetch("https://openai-image-website1.vercel.app/api/v1/dalle", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
