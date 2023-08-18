@@ -1,4 +1,5 @@
 import React from "react";
+import {Link, useNavigate} from "react-router-dom";
 import { useState } from "react";
 
 const Register = () => {
@@ -9,12 +10,14 @@ const Register = () => {
         email:'',
         password:''
     })
+    const[loading,setloading]=useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const {firstname,lastname,email,password} = user;
         // console.log(firstname,lastname,email,password)
         if(firstname&&lastname&&email&&password){
+          setloading(true);
             try {
                 const response=await fetch('https://openai-image-website1.vercel.app/api/register',{
                     method:'POST',
@@ -27,11 +30,11 @@ const Register = () => {
                 })
 
                 const data = await response.json();
-
-                alert('user registered successfully');
-
+                window.location.href='/login';
             } catch (error) {
                 console.log(error);
+            }finally{
+              setloading(false);
             }
         }else{
             console.log('all fields are required');
@@ -59,7 +62,7 @@ const Register = () => {
 
       <form action="" onSubmit={handleSubmit} method="post">
         <div className="flex justify-center items-center">
-          <div className="flex flex-col w-1/2">
+          <div className="flex flex-col w-3/2 md:w-1/2">
             <div className="flex flex-col mb-4 gap-1">
               <label htmlFor="username" className="text-lg mb-2 text-white">
                 First Name
@@ -105,11 +108,16 @@ const Register = () => {
                 placeholder="password"
                 className="border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-blue-400"
               />
-            </div>
-            <button type="submit" className="bg-[#33a140] hover:bg-green-900 p-2 rounded-lg text-white mt-6">Create Account</button>
+            </div>{
+              loading?<button type="submit" className="bg-green-900 p-2 rounded-lg text-white mt-6">Creating your Account...</button>:
+              <button type="submit" className="bg-[#33a140] hover:bg-green-900 p-2 rounded-lg text-white mt-6">Create Account</button>
+            }
+              <div className="flex-col text-center text-white my-5 ">
+                  <p className="text-center my-3">OR</p>
+                  <Link to="/login" className="text-xl bg-slate-500 rounded-lg px-5  py-2 ">Log in </Link>
+              </div>
           </div>
         </div>
-        <div><img src="" alt="" /></div>
       </form>
     </section>
   );

@@ -11,6 +11,7 @@ const Createpost = () => {
 
   // declare all the required states
   const [loading, setloading] = useState(false);
+  const [errorMessage, seterrorMessage] = useState("");
   const [generatingImg, setgeneratingImg] = useState(false);
   const [form, setForm] = useState({
     name: "",
@@ -37,7 +38,6 @@ const Createpost = () => {
         navigate("/");
       } catch (error) {
         console.log(error);
-        alert(error);
       } finally {
         setloading(false);
       }
@@ -47,7 +47,7 @@ const Createpost = () => {
   };
 
   const generateImg = async () => {
-    if (form.prompt) {
+    if (form.prompt && form.name) {
       try {
         setgeneratingImg(true);
         const response = await fetch("https://openai-image-website1.vercel.app/api/v1/dalle", {
@@ -64,13 +64,19 @@ const Createpost = () => {
         setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
       } catch (error) {
         console.log(error);
-        alert(error);
+        seterrorMessage("It seems that API call have reached its limit. Please try again later !");
+        setTimeout(() => {
+          seterrorMessage("");
+        }, 3000);
       } finally {
         setgeneratingImg(false);
       }
     } else {
-      alert("Please enter a prompt");
-      console.log("Please enter a prompt");
+      seterrorMessage("Please enter your name and prompt !");
+      setTimeout(() => {
+        seterrorMessage("");
+      }, 3000);
+      // alert("Please enter your name and prompt");
     }
   };
 
@@ -133,6 +139,7 @@ const Createpost = () => {
           )}
         </div>
         <div className="flex flex-col md:mx-16 gap-3  py-6">
+        <p id="error" className="text-xl text-orange-400 px-6">{errorMessage}</p>
           <button type="button"
             onClick={generateImg}
             className="md:px-2 px-2 mx-4 bg-[#00980f]  text-white py-2 rounded-lg hover:cursor-pointer hover:bg-[#005d0b] md:w-1/3"

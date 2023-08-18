@@ -9,7 +9,7 @@ const Logout = () => {
 
   return (
     <div>
-        <button className='p-2 rounded-lg hover:bg-slate-800 bg-slate-600 transition' onClick={handleLogout}>Logout</button>
+        <button className='p-2 mx-2 rounded-lg hover:bg-slate-800 bg-slate-600 transition' onClick={handleLogout}>Logout</button>
     </div>
   )
 }

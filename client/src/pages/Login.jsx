@@ -8,6 +8,7 @@ const Login = () => {
 
   const navigate=useNavigate();
   const useAppstate=useContext(Appstate);
+  const[loading,setloading]=useState(false);
     const [user,setUser] = useState({
         email:'',
         password:''
@@ -18,6 +19,7 @@ const Login = () => {
         const {email,password} = user;
         // console.log(email,password)
         if(email&&password){
+          setloading(true);
             try {
                 const response=await fetch('https://openai-image-website1.vercel.app/api/login',{
                     method:'POST',
@@ -44,6 +46,8 @@ const Login = () => {
 
             } catch (error) {
                 console.log(error);
+            }finally{
+              setloading(false);
             }
         }else{
             console.log('all fields are required');
@@ -63,14 +67,14 @@ const Login = () => {
     >
       <div className="h-auto md:px-0 px-4 py-16 flex justify-center items-center">
         <h1 className="md:text-4xl  text-2xl text-center text-white font-bold drop-shadow-lg">
-          <span className="text-[#36a3db]">Create</span> your account to get
+          <span className="text-[#36a3db]">Hop on</span> your account to get
           started
         </h1>
       </div>
 
       <form action="" onSubmit={handleSubmit} method="post">
         <div className="flex justify-center items-center flex-col">
-          <div className="flex flex-col w-1/2">
+          <div className="flex flex-col md:w-1/2 w-3/2">
             <div className="flex flex-col mb-4 gap-1">
               <label htmlFor="email" className="text-lg mb-2 text-white">
                 Email
@@ -94,12 +98,15 @@ const Login = () => {
                 placeholder="password"
                 className="border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-blue-400"
               />
-            </div>
-            <button type="submit" className="bg-[#33a140] hover:bg-green-900 p-2 rounded-lg text-white mt-6">Login</button>
+            </div>{
+              loading?
+              <button type="submit" className="bg-green-900 p-2 rounded-lg text-gray mt-6 text-white">Logging you in...</button>
+              :<button type="submit" className="bg-[#33a140] hover:bg-green-900 p-2 rounded-lg text-white mt-6">Login</button>
+            }
           </div>
-              <div className="flex-col  text-white my-5">
-                  <p className="text-center">OR</p>
-                  <Link to="/register" className="text-xl text-[#968fff]">Sign Up</Link>
+              <div className="flex-col  text-white my-5 ">
+                  <p className="text-center my-3">OR</p>
+                  <Link to="/register" className="text-xl bg-slate-500 rounded-lg px-5  py-2 ">Sign Up</Link>
               </div>
         </div>
         <div><img src="" alt="" /></div>
