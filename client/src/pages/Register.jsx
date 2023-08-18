@@ -11,6 +11,7 @@ const Register = () => {
         password:''
     })
     const[loading,setloading]=useState(false);
+    const[errorMessage,seterrorMessage]=useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -32,12 +33,19 @@ const Register = () => {
                 const data = await response.json();
                 window.location.href='/login';
             } catch (error) {
-                console.log(error);
+                seterrorMessage('Something went wrong');
+                setTimeout(()=>{
+                  seterrorMessage('');
+                },[3000])
             }finally{
               setloading(false);
             }
         }else{
-            console.log('all fields are required');
+            seterrorMessage('All fields are required');
+            setTimeout(()=>{
+              seterrorMessage('');
+            }
+            ,[3000])
         }
     }
     const handleInputs = (e) => {
@@ -108,6 +116,7 @@ const Register = () => {
                 placeholder="password"
                 className="border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-blue-400"
               />
+              <p id="error" className="text-lg text-center text-orange-400 px-6">{errorMessage}</p>
             </div>{
               loading?<button type="submit" className="bg-green-900 p-2 rounded-lg text-white mt-6">Creating your Account...</button>:
               <button type="submit" className="bg-[#33a140] hover:bg-green-900 p-2 rounded-lg text-white mt-6">Create Account</button>

@@ -28,7 +28,6 @@ const App = () => {
       })
 
       setloggedin(true);
-      console.log(token);
     } else {
       setloggedin(false);
     }

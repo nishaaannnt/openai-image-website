@@ -7,6 +7,7 @@ import { Appstate } from "../App";
 const Login = () => {
 
   const navigate=useNavigate();
+  const [errorMessage,seterrorMessage]=useState('');
   const useAppstate=useContext(Appstate);
   const[loading,setloading]=useState(false);
     const [user,setUser] = useState({
@@ -41,16 +42,25 @@ const Login = () => {
                   localStorage.setItem('token',data.token);
                   window.location.href='/';
                 }else{
-                  alert("response is not 200")
+                  seterrorMessage('Invalid Credentials');
+                  setTimeout(()=>{
+                    seterrorMessage('');
+                  },[3000])
                 }
 
             } catch (error) {
-                console.log(error);
+                seterrorMessage('Something went wrong');
+                setTimeout(()=>{
+                  seterrorMessage('');
+                },[3000])
             }finally{
               setloading(false);
             }
         }else{
-            console.log('all fields are required');
+          seterrorMessage('All fields are required');
+          setTimeout(()=>{
+            seterrorMessage('');
+          },[3000])
         }
     }
     const handleInputs = (e) => {
@@ -98,10 +108,11 @@ const Login = () => {
                 placeholder="password"
                 className="border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-blue-400"
               />
+              <p id="error" className="text-lg text-center text-orange-400 px-6">{errorMessage}</p>
             </div>{
               loading?
-              <button type="submit" className="bg-green-900 p-2 rounded-lg text-gray mt-6 text-white">Logging you in...</button>
-              :<button type="submit" className="bg-[#33a140] hover:bg-green-900 p-2 rounded-lg text-white mt-6">Login</button>
+              <button type="submit" className="bg-green-900 p-2 rounded-lg text-gray mt-3 text-white">Logging you in...</button>
+              :<button type="submit" className="bg-[#33a140] hover:bg-green-900 p-2 rounded-lg text-white mt-3">Login</button>
             }
           </div>
               <div className="flex-col  text-white my-5 ">
