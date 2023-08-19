@@ -13,7 +13,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: "http://openai-image-website.vercel.app",
+  origin: "https://openai-image-website.vercel.app",
   methods: ["GET", "POST", "PUT", "DELETE"]
 }
 ));
