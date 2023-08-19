@@ -12,7 +12,11 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: "http://openai-image-website.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE"]
+}
+));
 
 app.use(express.json({ limit: "50mb" }));
 
