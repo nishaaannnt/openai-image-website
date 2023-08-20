@@ -2,40 +2,28 @@ import express from "express";
 import * as dotenv from "dotenv";
 import cors from "cors";
 import connectDb from "./mongodb/connect.js";
-import postRoutes from './routes/postRoutes.js'
-import userRegister from './routes/userRegister.js'
-import dalleRoutes from './routes/dalleRoutes.js'
-import loginRoutes from './routes/loginRoute.js'
+import postRoutes from "./routes/postRoutes.js";
+import userRegister from "./routes/userRegister.js";
+import dalleRoutes from "./routes/dalleRoutes.js";
+import loginRoutes from "./routes/loginRoute.js";
 
 dotenv.config();
-
 
 const app = express();
 
 
-// Allow requests only from the specific frontend origin
-const allowedOrigins = [
-  'https://openai-image-website.vercel.app',
-  // Add other allowed origins if needed
-];
-
-app.use(cors({
-  origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin) || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  }
-}));
-
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 app.use(express.json({ limit: "50mb" }));
 
-app.use('/api/v1/post',postRoutes)
-app.use('/api/v1/dalle',dalleRoutes)
-app.use('/api/register',userRegister)
-app.use('/api/login',loginRoutes)
+app.use("/api/v1/post", postRoutes);
+app.use("/api/v1/dalle", dalleRoutes);
+app.use("/api/register", userRegister);
+app.use("/api/login", loginRoutes);
 
 app.get("/", async (req, res) => {
   res.send("Hello World");
