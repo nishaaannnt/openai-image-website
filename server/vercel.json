@@ -2,18 +2,18 @@
     "version": 2,
     "builds": [
       {
-        "src": "*.js",
+        "src": "./index.js",
         "use": "@vercel/node"
       }
     ],
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "/"
+        "dest": "./index.js",
+        "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+        "headers": {
+          "Access-Control-Allow-Origin": "*"
+        }
       }
-    ],
-    "public": false,
-    "cors": {
-      "origin": "https://openai-image-website.vercel.app"
-    }
+    ]
   }
