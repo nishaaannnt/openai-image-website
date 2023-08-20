@@ -19,11 +19,20 @@ app.use(
 );
 
 app.use(express.json({ limit: "50mb" }));
+app.options('*', (req, res) => {
+  // Set CORS headers and respond with a 200 OK status
+  res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+  res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.status(200).send();
+});
+
 
 app.use("/api/v1/post", postRoutes);
 app.use("/api/v1/dalle", dalleRoutes);
 app.use("/api/register", userRegister);
 app.use("/api/login", loginRoutes);
+
 
 app.get("/", async (req, res) => {
   res.send("Hello World");
