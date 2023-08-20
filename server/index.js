@@ -7,15 +7,12 @@ import userRegister from './routes/userRegister.js'
 import dalleRoutes from './routes/dalleRoutes.js'
 import loginRoutes from './routes/loginRoute.js'
 
+dotenv.config();
 
 
 const app = express();
 
 app.use(cors);
-
-
-dotenv.config();
-
 
 app.use(express.json({ limit: "50mb" }));
 

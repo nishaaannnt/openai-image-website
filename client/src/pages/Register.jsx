@@ -20,7 +20,7 @@ const Register = () => {
         if(firstname&&lastname&&email&&password){
           setloading(true);
             try {
-                const response=await fetch('https://openai-image-website1.vercel.app/api/register',{
+                const response=await fetch('https://openai-image-website-backend.vercel.app/api/register',{
                     method:'POST',
                     headers:{
                         'Content-Type':'application/json'

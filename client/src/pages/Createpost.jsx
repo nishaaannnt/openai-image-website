@@ -25,7 +25,7 @@ const Createpost = () => {
     if (form.name && form.prompt && form.photo) {
       setloading(true);
       try {
-        const response = await fetch("https://openai-image-website1.vercel.app/api/v1/post", {
+        const response = await fetch("https://openai-image-website-backend.vercel.app/api/v1/post", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

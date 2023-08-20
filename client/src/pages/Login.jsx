@@ -22,7 +22,7 @@ const Login = () => {
         if(email&&password){
           setloading(true);
             try {
-                const response=await fetch('https://openai-image-website1.vercel.app/api/login',{
+                const response=await fetch('https://openai-image-website-backend.vercel.app/api/login',{
                     method:'POST',
                     headers:{
                         'Content-Type':'application/json'
