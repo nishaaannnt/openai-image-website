@@ -69,4 +69,4 @@ npm start
 
 ## Note 
 
-API used in the application is mine personal so if you cannot generate an image their is a possibility that API requests have reached their limit
+API used in the application is mine personal so if you cannot generate an image there is a possibility that API requests have reached their limit
