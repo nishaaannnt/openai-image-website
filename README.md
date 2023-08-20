@@ -1,6 +1,8 @@
 # AI Image Generation 🤖
 
-## Update - More new features are being added (under Work) 
+![sampleImg](image.png)
+
+## Based on API provided by OpenAI 
 This project is an AI-powered image generation application built using the MERN stack (MongoDB, Express.js, React.js, Node.js), Tailwind CSS, OpenAI API, and Cloudinary. It allows users to generate realistic images based on their inputs and showcase them in the community.
 
 ## Features
@@ -65,4 +67,6 @@ npm start
 
 8. Access the application on `http://localhost:5000` in your browser.
 
-Images of the website will be added soon!
+## Note 
+
+API used in the application is mine personal so if you cannot generate an image their is a possibility that API requests have reached their limit
