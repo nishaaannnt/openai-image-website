@@ -1,4 +1,4 @@
-# AI Image Generation 🤖
+# AI Image Generation 
 
 ![sampleImg](image.png)
 
