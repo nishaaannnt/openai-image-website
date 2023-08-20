@@ -11,5 +11,9 @@
         "src": "/(.*)",
         "dest": "/"
       }
-    ]
+    ],
+    "public": false,
+    "cors": {
+      "origin": "https://openai-image-website.vercel.app"
+    }
   }
