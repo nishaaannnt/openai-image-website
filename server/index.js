@@ -12,7 +12,23 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
+
+// Allow requests only from the specific frontend origin
+const allowedOrigins = [
+  'https://openai-image-website.vercel.app',
+  // Add other allowed origins if needed
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
+
 
 app.use(express.json({ limit: "50mb" }));
 
